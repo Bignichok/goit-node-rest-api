@@ -33,7 +33,7 @@ export const deleteContact = async (req, res) => {
         if (!removedContact) {
             throw HttpError(404);
         }
-        res.status(200).json({ message: "Contact deleted successfully", contact: removedContact });
+        res.status(200).json(removedContact);
     } catch (error) {
         console.error("Error deleting contact:", error);
         const { status = 500, message = "Internal Server Error" } = error;
@@ -68,7 +68,7 @@ export const updateContact = async (req, res) => {
                 }
                 res.status(200).json(updatedContact);
             } else {
-                throw HttpError(400, "Name, email, or phone is required");
+                throw HttpError(400, "Body must have at least one field");
             }
         } catch (error) {
             console.error("Error updating contact:", error);
