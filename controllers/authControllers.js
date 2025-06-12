@@ -28,3 +28,13 @@ export const login = async (req, res) => {
     res.status(status).json({ message });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    await authServices.logoutUser(req.user.id);
+    res.status(204).json();
+  } catch (error) {
+    const { status = 500, message = "Internal Server Error" } = error;
+    res.status(status).json({ message });
+  }
+};

@@ -30,6 +30,9 @@ export const loginUser = async (email, password) => {
     expiresIn: "1h",
   });
 
+  // Store token in user record
+  await user.update({ token });
+
   return {
     token,
     user: {
@@ -37,4 +40,13 @@ export const loginUser = async (email, password) => {
       subscription: user.subscription,
     },
   };
+};
+
+export const logoutUser = async (userId) => {
+  const user = await User.findByPk(userId);
+  if (!user) {
+    throw HttpError(404, "User not found");
+  }
+
+  await user.update({ token: null });
 };

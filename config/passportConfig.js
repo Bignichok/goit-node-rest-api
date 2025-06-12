@@ -11,27 +11,14 @@ passport.use(
   new JwtStrategy(options, async (payload, done) => {
     try {
       const user = await User.findByPk(payload.id);
-      if (user) {
+      if (user && user.token) {
         return done(null, user);
       }
       return done(null, false);
     } catch (error) {
-      done(error, false);
+      return done(error, false);
     }
   })
 );
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findByPk(id);
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
 
 export default passport;
