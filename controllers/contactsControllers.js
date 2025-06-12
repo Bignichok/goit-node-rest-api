@@ -50,6 +50,7 @@ export const createContact = async (req, res) => {
       name,
       email,
       phone,
+      owner: req.user.id,
     });
     res.status(201).json(newContact);
   } catch (error) {

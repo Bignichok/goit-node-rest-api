@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import passport from "./config/passportConfig.js";
+
 import { connectDB } from "./db/sequelize.js";
 import { applyAssociations } from "./models/associations.js";
 
@@ -15,6 +17,7 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/auth", authRouter);

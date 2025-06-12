@@ -8,8 +8,8 @@ export const getContactById = async (id) => {
   return await Contact.findByPk(id);
 };
 
-export const addContact = async ({ name, email, phone }) => {
-  return await Contact.create({ name, email, phone });
+export const addContact = async ({ name, email, phone, owner }) => {
+  return await Contact.create({ name, email, phone, owner });
 };
 
 export const updateContactById = async (id, body) => {
