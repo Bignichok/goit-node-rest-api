@@ -24,7 +24,7 @@ const Contact = sequelize.define("contact", {
     defaultValue: false,
   },
   owner: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
   },
 });

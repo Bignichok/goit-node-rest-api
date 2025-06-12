@@ -2,6 +2,11 @@ import { DataTypes } from "sequelize";
 import sequelize from "../db/sequelize.js";
 
 const User = sequelize.define("user", {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -12,8 +17,7 @@ const User = sequelize.define("user", {
     unique: true,
   },
   subscription: {
-    type: DataTypes.ENUM,
-    values: ["starter", "pro", "business"],
+    type: DataTypes.ENUM("starter", "pro", "business"),
     defaultValue: "starter",
   },
   token: {
