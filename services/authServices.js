@@ -50,3 +50,15 @@ export const logoutUser = async (userId) => {
 
   await user.update({ token: null });
 };
+
+export const getCurrentUser = async (userId) => {
+  const user = await User.findByPk(userId);
+  if (!user) {
+    throw HttpError(404, "User not found");
+  }
+
+  return {
+    email: user.email,
+    subscription: user.subscription,
+  };
+};
