@@ -1,10 +1,18 @@
 import Contact from "../models/contact.js";
 
-export const getContactsList = async (owner, { page = 1, limit = 20 } = {}) => {
+export const getContactsList = async (
+  owner,
+  { page = 1, limit = 20, favorite } = {}
+) => {
   const offset = (page - 1) * limit;
 
+  const whereClause = { owner };
+  if (favorite !== undefined) {
+    whereClause.favorite = favorite === "true" || favorite === true;
+  }
+
   const { count, rows } = await Contact.findAndCountAll({
-    where: { owner },
+    where: whereClause,
     limit: parseInt(limit),
     offset: parseInt(offset),
     order: [["createdAt", "DESC"]],
