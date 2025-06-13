@@ -62,3 +62,23 @@ export const getCurrentUser = async (userId) => {
     subscription: user.subscription,
   };
 };
+
+export const updateUserSubscription = async (userId, subscription) => {
+  const validSubscriptions = ["starter", "pro", "business"];
+
+  if (!validSubscriptions.includes(subscription)) {
+    throw HttpError(400, "Invalid subscription type");
+  }
+
+  const user = await User.findByPk(userId);
+  if (!user) {
+    throw HttpError(404, "User not found");
+  }
+
+  await user.update({ subscription });
+
+  return {
+    email: user.email,
+    subscription: user.subscription,
+  };
+};

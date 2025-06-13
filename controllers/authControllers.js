@@ -48,3 +48,24 @@ export const getCurrentUser = async (req, res) => {
     res.status(status).json({ message });
   }
 };
+
+export const updateSubscription = async (req, res) => {
+  try {
+    const { subscription } = req.body;
+
+    if (!subscription) {
+      return res
+        .status(400)
+        .json({ message: "Subscription field is required" });
+    }
+
+    const updatedUser = await authServices.updateUserSubscription(
+      req.user.id,
+      subscription
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    const { status = 500, message = "Internal Server Error" } = error;
+    res.status(status).json({ message });
+  }
+};
