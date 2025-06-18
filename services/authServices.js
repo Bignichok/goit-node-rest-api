@@ -11,12 +11,11 @@ export const registerUser = async ({ email, password }) => {
     throw HttpError(409, "Email is already in use");
   }
 
-  // Generate gravatar URL
   const avatarUrl = gravatar.url(email, {
-    s: "200", // Size 200x200
-    r: "pg", // Rating: G, PG, R, X
-    d: "identicon", // Default image type if no gravatar found
-    protocol: "https", // Use HTTPS
+    s: "200",
+    r: "pg",
+    d: "identicon",
+    protocol: "https",
   });
 
   const newUser = await User.create({ email, password, avatarUrl });
