@@ -13,6 +13,8 @@ import {
   getCurrentUser,
   updateSubscription,
   uploadAvatar,
+  verifyEmail,
+  resendVerification,
 } from "../controllers/authControllers.js";
 
 const authRouter = express.Router();
@@ -34,5 +36,8 @@ authRouter.patch(
   upload.single("avatar"),
   uploadAvatar
 );
+
+authRouter.get("/verify/:verificationToken", verifyEmail);
+authRouter.post("/verify", resendVerification);
 
 export default authRouter;
